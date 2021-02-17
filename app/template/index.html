@@ -1,0 +1,23 @@
+{% extends 'layouts/main_layout.html' %}
+
+{% block body %}
+    <div id='app'>
+        <p>[[content]]</p>
+        <input type="text" v-model="content">
+    </div>
+{% endblock %}
+
+{% block script_vue %}
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            content: 'Hello World'
+        },
+        created() {
+            console.log('vue')
+        },
+        delimiters: ['[[', ']]']
+    })
+</script>
+{% endblock %}
