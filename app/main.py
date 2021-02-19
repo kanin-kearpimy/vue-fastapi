@@ -5,7 +5,6 @@ from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 from pathlib import Path
 from dotenv import load_dotenv
-# from app.modules.connect_database.ConnectDatabase import ConnectDatabase
 from sqlalchemy import create_engine, ForeignKey
 from sqlalchemy import Column, Date, Integer, String
 import sqlalchemy as db
