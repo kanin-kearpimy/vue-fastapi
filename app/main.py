@@ -11,40 +11,16 @@ from sqlalchemy import Column, Date, Integer, String
 import sqlalchemy as db
 from sqlalchemy.ext.declarative import declarative_base
 import os
+from app.routers import api, web
 
 # Basic Application Setup
 app = FastAPI()
 app.mount("/static", StaticFiles(directory='app/static'), name="static")
 load_dotenv('./.env')
 
-# Database Setup Start
-
-# engine = create_engine('sqlite:///fastapi.db', echo=True)
-# Base = declarative_base()
-# class School(Base):
-
-#     __tablename__ = "woot"
-
-#     id = Column(Integer, primary_key=True)
-#     name = Column(String)  
-
-
-#     def __init__(self, name):
-
-#         self.name = name    
-
-# if(os.path.isfile('fastapi.db') == False):
-#     Base.metadata.create_all(engine)
-
-# connection = engine.connect()
-# metadata = db.MetaData()
-# census = db.Table('woot', metadata, autoload=True, autoload_with=engine)
-
-# Database Setup End
-
-# database = ConnectDatabase()
-
-templates = Jinja2Templates(directory="app/template")
+# import router
+app.include_router(api.router)
+app.include_router(web.router)
 
 origins = [
     "http://localhost.tiangolo.com",
@@ -61,12 +37,3 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-@app.get('/')
-def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
-
-@app.post('/api/add-list')
-async def addList(request: Request):
-    all_request = await request.json()
-    return all_request
